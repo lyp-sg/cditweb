@@ -1,7 +1,7 @@
 package com.yongpeng.dev.cditweb.Controller;
 
 import com.yongpeng.dev.cditweb.DTO.UserDTO;
-import com.yongpeng.dev.cditweb.Service.StorageService;
+import com.yongpeng.dev.cditweb.Service.FileProcessingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,23 +12,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class FileUploadController {
 
-    private final StorageService storageService;
+    private final FileProcessingService fileProcessingService;
 
     @Autowired
-    public FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
+    public FileUploadController(FileProcessingService storageService) {
+        this.fileProcessingService = storageService;
     }
 
     @GetMapping("/")
     public String displayUploadForm(Model model) {
-        return "uploadForm";
+        return "index";
     }
 
     @PostMapping("/")
@@ -39,7 +37,7 @@ public class FileUploadController {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            List<UserDTO> list = storageService.processFile(file);
+            List<UserDTO> list = fileProcessingService.processFile(file);
             ResponseEntity<String> response = restTemplate.postForObject(uri, list, ResponseEntity.class);
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("message",
