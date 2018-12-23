@@ -1,7 +1,7 @@
 package com.yongpeng.dev.cditweb.cditweb;
 
 import com.yongpeng.dev.cditweb.DTO.UserDTO;
-import com.yongpeng.dev.cditweb.Service.FileSystemStorageService;
+import com.yongpeng.dev.cditweb.Service.FileSystemProcessingService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -11,12 +11,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileSystemStorageServiceTest {
-    private FileSystemStorageService service;
+public class FileSystemProcessingServiceTest {
+    private FileSystemProcessingService service;
 
     @Before
     public void init() {
-        service = new FileSystemStorageService();
+        service = new FileSystemProcessingService();
     }
 
     @Test
